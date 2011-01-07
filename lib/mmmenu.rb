@@ -89,7 +89,9 @@ class Mmmenu
             request_type_option = path[1] || ""
             if ((@current_path == path[0].chomp('/') and @request_type == request_type_option.downcase)  or 
             # OR IF * wildcard is used and path matches
-            (path[0] =~ /\*$/ and @current_path =~ /^#{path[0].chomp('*')}(.+)?$/)) and    
+            (path[0] =~ /\*$/ and @current_path =~ /^#{path[0].chomp('*')}(.+)?$/) or
+            # OR IF current_path is a subpath for one of paths in array (item[:paths])
+            (item[:match_subpaths] and @current_path =~ /^#{path[0].chomp('/')}(\/.+)?$/)) and
             # all listed request params match
             params_match?(path)
               return true 
