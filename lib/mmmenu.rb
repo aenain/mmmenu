@@ -1,6 +1,7 @@
 class Mmmenu
 
   attr_accessor :active_item
+  attr_reader :items
 
   def initialize(options, &block)
     @items          = options[:items] || Mmmenu::Level.new(&block).to_a
